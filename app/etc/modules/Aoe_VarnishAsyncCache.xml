@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aoe_VarnishAsyncCache>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Magneto_Varnish />
+                <Aoe_AsyncCache />
+            </depends>
+        </Aoe_VarnishAsyncCache>
+    </modules>
+</config>

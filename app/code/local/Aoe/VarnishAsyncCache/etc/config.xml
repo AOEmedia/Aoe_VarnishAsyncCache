@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aoe_VarnishAsyncCache>
+            <version>0.0.1</version>
+        </Aoe_VarnishAsyncCache>
+    </modules>
+    <global>
+        <helpers>
+            <varnishasynccache>
+                <class>Aoe_VarnishAsyncCache_Helper</class>
+            </varnishasynccache>
+            <varnish>
+                <rewrite>
+                    <data>Aoe_VarnishAsyncCache_Helper_Data</data>
+                </rewrite>
+            </varnish>
+        </helpers>
+        <models>
+            <aoeasynccache>
+                <rewrite>
+                    <cleaner>Aoe_VarnishAsyncCache_Model_Cleaner</cleaner>
+                </rewrite>
+            </aoeasynccache>
+            <aoeasynccache_mysql4>
+                <rewrite>
+                    <asynccache_collection>Aoe_VarnishAsyncCache_Model_Mysql4_Asynccache_Collection</asynccache_collection>
+                </rewrite>
+            </aoeasynccache_mysql4>
+        </models>
+    </global>
+</config>
