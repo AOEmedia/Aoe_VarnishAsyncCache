@@ -5,7 +5,7 @@ class Aoe_VarnishAsyncCache_Model_Cleaner extends Aoe_AsyncCache_Model_Cleaner {
 	/**
 	 * Process the queue
 	 *
-	 * @return true
+	 * @return array|null
 	 */
 	public function processQueue() {
 
@@ -47,6 +47,6 @@ class Aoe_VarnishAsyncCache_Model_Cleaner extends Aoe_AsyncCache_Model_Cleaner {
 		// disabling asynccache (clear cache requests will be processed right away) for all following requests in this script call
 		Mage::register('disableasynccache', true, true);
 
-		return true;
+		return $jobs;
 	}
 }
