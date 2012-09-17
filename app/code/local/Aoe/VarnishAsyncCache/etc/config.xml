@@ -27,6 +27,11 @@
                     <asynccache_collection>Aoe_VarnishAsyncCache_Model_Mysql4_Asynccache_Collection</asynccache_collection>
                 </rewrite>
             </aoeasynccache_mysql4>
+            <varnish>
+                <rewrite>
+                    <observer>Aoe_VarnishAsyncCache_Model_Observer</observer>
+                </rewrite>
+            </varnish>
         </models>
     </global>
 </config>
