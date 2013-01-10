@@ -18,7 +18,7 @@ class Aoe_VarnishAsyncCache_Helper_Data extends Magneto_Varnish_Helper_Data {
             $asynccache->setTstamp(time());
             $asynccache->setMode(Aoe_VarnishAsyncCache_Helper_Data::MODE_PURGEVARNISHURL);
             $asynccache->setTags($url);
-            $asynccache->setStatus('pending');
+            $asynccache->setStatus(Aoe_AsyncCache_Model_Asynccache::STATUS_PENDING);
 
             try {
                 $asynccache->save();
@@ -39,7 +39,7 @@ class Aoe_VarnishAsyncCache_Helper_Data extends Magneto_Varnish_Helper_Data {
      * @return  array with all errors
      */
     public function purgeVarnishUrls(array $urls) {
-
         return parent::purge($urls);
     }
+
 }

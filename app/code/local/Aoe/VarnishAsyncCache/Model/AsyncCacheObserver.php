@@ -2,6 +2,11 @@
 
 class Aoe_VarnishAsyncCache_Model_AsyncCacheObserver {
 
+	/**
+	 * Post process job collection
+	 *
+	 * @param Mage_Core_Model_Observer $observer
+	 */
 	public function postProcessJobCollection(Mage_Core_Model_Observer $observer) {
 		$jobCollection = $observer->getJobCollection(); /* @var $jobCollection Aoe_AsyncCache_Model_JobCollection */
 
