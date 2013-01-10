@@ -2,6 +2,8 @@
 
 class Aoe_VarnishAsyncCache_Helper_Data extends Magneto_Varnish_Helper_Data {
 
+	CONST MODE_PURGEVARNISHURL = 'purgeVarnishUrl';
+
 	/**
 	 * Store an array of urls in cache for purging with Aoe_AsyncCache extension later
 	 *
@@ -14,7 +16,7 @@ class Aoe_VarnishAsyncCache_Helper_Data extends Magneto_Varnish_Helper_Data {
         foreach ($urls as $url) { /* @var $url string */
             $asynccache = Mage::getModel('aoeasynccache/asynccache'); /* @var $asynccache Aoe_AsyncCache_Model_Asynccache */
             $asynccache->setTstamp(time());
-            $asynccache->setMode('purgeVarnishUrl');
+            $asynccache->setMode(Aoe_VarnishAsyncCache_Helper_Data::MODE_PURGEVARNISHURL);
             $asynccache->setTags($url);
             $asynccache->setStatus('pending');
 

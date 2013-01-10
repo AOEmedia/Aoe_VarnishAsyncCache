@@ -17,16 +17,6 @@
             </varnish>
         </helpers>
         <models>
-            <aoeasynccache>
-                <rewrite>
-                    <cleaner>Aoe_VarnishAsyncCache_Model_Cleaner</cleaner>
-                </rewrite>
-            </aoeasynccache>
-            <aoeasynccache_mysql4>
-                <rewrite>
-                    <asynccache_collection>Aoe_VarnishAsyncCache_Model_Mysql4_Asynccache_Collection</asynccache_collection>
-                </rewrite>
-            </aoeasynccache_mysql4>
             <varnish>
                 <rewrite>
                     <observer>Aoe_VarnishAsyncCache_Model_Observer</observer>
