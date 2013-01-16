@@ -7,9 +7,12 @@ class Aoe_VarnishAsyncCache_Model_AsyncCacheObserver {
 	 *
 	 * @param Mage_Core_Model_Observer $observer
 	 */
-	public function postProcessJobCollection(Mage_Core_Model_Observer $observer) {
-		$jobCollection = $observer->getJobCollection(); /* @var $jobCollection Aoe_AsyncCache_Model_JobCollection */
+	public function postProcessJobCollection(Varien_Event_Observer $observer) {
+		$jobCollection = $observer->getData('jobCollection'); /* @var $jobCollection Aoe_AsyncCache_Model_JobCollection */
 
+		if(!$jobCollection) {
+			return;
+		}
 		foreach ($jobCollection as $job) { /* @var $job Aoe_AsyncCache_Model_Job */
 			if (!$job->getIsProcessed() && $job->getMode() == Aoe_VarnishAsyncCache_Helper_Data::MODE_PURGEVARNISHURL) {
 

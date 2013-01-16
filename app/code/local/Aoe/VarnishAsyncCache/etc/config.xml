@@ -17,11 +17,24 @@
             </varnish>
         </helpers>
         <models>
+            <varnishasynccache>
+                <class>Aoe_VarnishAsyncCache_Model</class>
+            </varnishasynccache>
             <varnish>
-                <rewrite>
+                <rewrite> <!-- rewrites observer from Magneto_Varnish module -->
                     <observer>Aoe_VarnishAsyncCache_Model_Observer</observer>
                 </rewrite>
             </varnish>
         </models>
+        <events>
+            <aoeasynccache_processqueue_postprocessjobcollection>
+                <observers>
+                    <varnishasynccache>
+                        <class>varnishasynccache/asyncCacheObserver</class>
+                        <method>postProcessJobCollection</method>
+                    </varnishasynccache>
+                </observers>
+            </aoeasynccache_processqueue_postprocessjobcollection>
+        </events>
     </global>
 </config>
