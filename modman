@@ -1,2 +1,3 @@
-app/etc/modules/Aoe_VarnishAsyncCache.xml      app/etc/modules/Aoe_VarnishAsyncCache.xml
-app/code/local/Aoe/VarnishAsyncCache/          app/code/local/Aoe/VarnishAsyncCache/
+app/etc/modules/Aoe_VarnishAsyncCache.xml         app/etc/modules/Aoe_VarnishAsyncCache.xml
+app/code/local/Aoe/VarnishAsyncCache/             app/code/local/Aoe/VarnishAsyncCache/
+app/design/adminhtml/layout/varnishasynccache/    app/design/adminhtml/default/default/layout/varnishasynccache/

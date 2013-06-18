@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_varnishasynccache_blacklisturlpattern_index>
+        <reference name="content">
+            <block type="varnishasynccache/adminhtml_blacklistUrlPattern" name="varnishasynccache.blacklist.url.pattern" />
+        </reference>
+    </adminhtml_varnishasynccache_blacklisturlpattern_index>
+    <adminhtml_varnishasynccache_blacklisturlpattern_edit>
+        <reference name="content">
+            <block type="varnishasynccache/adminhtml_blacklistUrlPattern_edit" name="varnishasynccache.blacklist.url.pattern.edit" />
+        </reference>
+    </adminhtml_varnishasynccache_blacklisturlpattern_edit>
+    <adminhtml_varnishasynccache_blacklisturlpattern_grid>
+        <block type="varnishasynccache/adminhtml_blacklistUrlPattern_grid" name="root" />
+    </adminhtml_varnishasynccache_blacklisturlpattern_grid>
+</layout>

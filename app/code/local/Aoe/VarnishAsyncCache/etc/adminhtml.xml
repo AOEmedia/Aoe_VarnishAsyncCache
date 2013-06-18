@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+         <system>
+            <children>
+                <varnishasynccache_blacklistUrlPattern translate="title" module="varnishasynccache">
+                    <title>Varnish Cache Url Blacklist</title>
+                    <action>adminhtml/varnishasynccache_blacklistUrlPattern</action>
+                    <sort_order>10</sort_order>
+                </varnishasynccache_blacklistUrlPattern>
+            </children>
+         </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system translate="title" module="varnishasynccache">
+                        <children>
+                            <varnishasynccache_blacklistUrlPattern translate="title">
+                                <title>Manage Varnish Cache Url Blacklist</title>
+                                <sort_order>0</sort_order>
+                                <children>
+                                    <save translate="title">
+                                        <title>Save Url Pattern</title>
+                                        <sort_order>0</sort_order>
+                                    </save>
+                                    <delete translate="title">
+                                        <title>Delete Url Pattern</title>
+                                        <sort_order>10</sort_order>
+                                    </delete>
+                                </children>
+                            </varnishasynccache_blacklistUrlPattern>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

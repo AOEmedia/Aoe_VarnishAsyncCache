@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Aoe_VarnishAsyncCache>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </Aoe_VarnishAsyncCache>
     </modules>
     <global>
@@ -16,16 +16,39 @@
                 </rewrite>
             </varnish>
         </helpers>
+        <blocks>
+            <varnishasynccache>
+                <class>Aoe_VarnishAsyncCache_Block</class>
+            </varnishasynccache>
+        </blocks>
         <models>
             <varnishasynccache>
                 <class>Aoe_VarnishAsyncCache_Model</class>
+                <resourceModel>varnishasynccache_resource</resourceModel>
             </varnishasynccache>
+            <varnishasynccache_resource>
+                <class>Aoe_VarnishAsyncCache_Model_Resource</class>
+                <entities>
+                    <blacklist_url_pattern>
+                        <table>varnishasynccache_blacklist_url_pattern</table>
+                    </blacklist_url_pattern>
+                </entities>
+            </varnishasynccache_resource>
+
             <varnish>
                 <rewrite> <!-- rewrites observer from Magneto_Varnish module -->
                     <observer>Aoe_VarnishAsyncCache_Model_Observer</observer>
                 </rewrite>
             </varnish>
         </models>
+        <resources>
+            <varnishasynccache_setup>
+                <setup>
+                    <module>Aoe_VarnishAsyncCache</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </varnishasynccache_setup>
+        </resources>
         <events>
             <aoeasynccache_processqueue_postprocessjobcollection>
                 <observers>
@@ -37,4 +60,26 @@
             </aoeasynccache_processqueue_postprocessjobcollection>
         </events>
     </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Aoe_VarnishAsyncCache before="Mage_Adminhtml">Aoe_VarnishAsyncCache_Adminhtml</Aoe_VarnishAsyncCache>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <varnishasynccache>
+                    <file>varnishasynccache/varnishasynccache.xml</file>
+                </varnishasynccache>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>
