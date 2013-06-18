@@ -1,29 +1,31 @@
 <?php
 
-class Aoe_VarnishAsyncCache_Model_Observer extends Magneto_Varnish_Model_Observer {
-
+class Aoe_VarnishAsyncCache_Model_Observer extends Magneto_Varnish_Model_Observer
+{
     /**
-     * Temporary save of already
-     * processed entries
+     * Temporary storage for already processed entries
      *
      * @var array
      */
     public $TAGS_ALREADY_PROCESSED = array();
 
     /**
-     * Listens to application_clean_cache event and gets notified when a product/category/cms
-     * model is saved.
+     * Listens to application_clean_cache event and gets notified when a product/category/cms model is saved
      *
      * @param $observer Mage_Core_Model_Observer
      * @return Magneto_Varnish_Model_Observer
      */
     public function purgeCache($observer)
     {
-        // If Varnish is not enabled on admin don't do anything
+        // if Varnish is not enabled on admin don't do anything
         if (!Mage::app()->useCache('varnish')) {
-            return;
+            return $this;
         }
 
+        /** @var Aoe_VarnishAsyncCache_Helper_Data $helper */
+        $helper = Mage::helper('varnishasynccache');
+        /** @var Mage_Adminhtml_Model_Session $session */
+        $session = Mage::getSingleton('adminhtml/session');
         $tags = $observer->getTags();
 
         // check if we should process tags from product which has no relevant changes
@@ -32,22 +34,22 @@ class Aoe_VarnishAsyncCache_Model_Observer extends Magneto_Varnish_Model_Observe
             foreach ((array) $tags as $tag) {
                 if (preg_match('/^catalog_product_(\d+)?/', $tag, $match)) {
                     if (isset($match[1]) && in_array($match[1], $skippableProductIds)) {
-                        return;
+                        return $this;
                     }
                 }
             }
         }
 
         $urls = array();
-
         if ($tags == array()) {
             $errors = Mage::helper('varnish')->purgeAll();
             if (!empty($errors)) {
-                Mage::getSingleton('adminhtml/session')->addError("Varnish Purge failed");
+                $session->addError($helper->__("Varnish Purge failed"));
             } else {
-                Mage::getSingleton('adminhtml/session')->addSuccess("The Varnish cache storage has been flushed.");
+                $session->addSuccess($helper->__("The Varnish cache storage has been flushed."));
             }
-            return;
+
+            return $this;
         }
 
         // compute the urls for affected entities
@@ -62,14 +64,10 @@ class Aoe_VarnishAsyncCache_Model_Observer extends Magneto_Varnish_Model_Observe
             $tag_fields = explode('_', $tag);
             if (count($tag_fields)==3) {
                 if ($tag_fields[1]=='product') {
-                    // Mage::log("Purge urls for product " . $tag_fields[2]);
-
                     // get urls for product
                     $product = Mage::getModel('catalog/product')->load($tag_fields[2]);
                     $urls = array_merge($urls, $this->_getUrlsForProduct($product));
                 } elseif ($tag_fields[1]=='category') {
-                    // Mage::log('Purge urls for category ' . $tag_fields[2]);
-
                     $category = Mage::getModel('catalog/category')->load($tag_fields[2]);
                     $category_urls = $this->_getUrlsForCategory($category);
                     $urls = array_merge($urls, $category_urls);
@@ -79,26 +77,27 @@ class Aoe_VarnishAsyncCache_Model_Observer extends Magneto_Varnish_Model_Observe
             }
         }
 
-        // Transform urls to relative urls
+        // transform urls to relative urls
         $relativeUrls = array();
         foreach ($urls as $url) {
             $relativeUrls[] = parse_url($url, PHP_URL_PATH);
         }
-        // Mage::log("Relative urls: " . var_export($relativeUrls, True));
 
         if (!empty($relativeUrls)) {
             $errors = Mage::helper('varnish')->purge($relativeUrls);
             if (!empty($errors)) {
-                Mage::getSingleton('adminhtml/session')->addError(
-                    "Some Varnish purges failed: <br/>" . implode("<br/>", $errors));
+                $session->addError($helper->__("Some Varnish purges failed: <br/>") . implode("<br/>", $errors));
             } else {
                 $count = count($relativeUrls);
                 if ($count > 5) {
                     $relativeUrls = array_slice($relativeUrls, 0, 5);
                     $relativeUrls[] = '...';
-                    $relativeUrls[] = "(Total number of purged urls: $count)";
+                    $relativeUrls[] = $helper->__("(Total number of purged urls: %d)", $count);
                 }
-                Mage::getSingleton('adminhtml/session')->addSuccess("Purges have been submitted successfully:<br/>" . implode("<br />", $relativeUrls));            }
+                $session->addSuccess(
+                    $helper->__("Purges have been submitted successfully:<br/>") . implode("<br />", $relativeUrls)
+                );
+            }
         }
 
         return $this;
