@@ -232,10 +232,9 @@ class Aoe_VarnishAsyncCache_Adminhtml_Varnishasynccache_BlacklistUrlPatternContr
         } else {
             if (!empty($patternIds)) {
                 try {
-                    foreach ($patternIds as $patternId) {
-                        Mage::getModel('varnishasynccache/blacklistUrlPattern')->setId($patternId)
-                            ->delete();
-                    }
+                    /** @var Aoe_VarnishAsyncCache_Model_BlacklistUrlPattern $blacklistUrlPatternModel */
+                    $blacklistUrlPatternModel = Mage::getModel('varnishasynccache/blacklistUrlPattern');
+                    $blacklistUrlPatternModel->deleteBlacklistUrlPatterns($patternIds);
                     $this->_getSession()->addSuccess(
                         Mage::helper('varnishasynccache')->__('Total of %d pattern(s) have been deleted.', count($patternIds))
                     );

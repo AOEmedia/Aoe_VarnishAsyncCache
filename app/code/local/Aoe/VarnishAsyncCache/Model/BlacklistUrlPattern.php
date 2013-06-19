@@ -59,4 +59,15 @@ class Aoe_VarnishAsyncCache_Model_BlacklistUrlPattern extends Mage_Core_Model_Ab
             throw new Mage_Core_Exception($message);
         }
     }
+
+    /**
+     * Delete url patterns with given ids
+     *
+     * @param array $patternIds
+     * @return $this
+     */
+    public function deleteBlacklistUrlPatterns(array $patternIds)
+    {
+        $this->getResource()->deleteBlacklistUrlPatterns($patternIds);
+    }
 }
