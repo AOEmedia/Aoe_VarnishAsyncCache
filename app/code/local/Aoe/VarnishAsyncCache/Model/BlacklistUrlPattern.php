@@ -27,7 +27,7 @@ class Aoe_VarnishAsyncCache_Model_BlacklistUrlPattern extends Mage_Core_Model_Ab
 
         $pattern = $this->getData('pattern');
         if (@preg_match($pattern, '') === false) {
-            $errors[] = Mage::helper('varnishasynccache')->__('Pattern is not valid PHP PCRE');
+            $errors[] = Mage::helper('varnishasynccache')->__('Pattern is not valid PHP PCRE Pattern');
         }
 
         if (count($errors) == 0) {

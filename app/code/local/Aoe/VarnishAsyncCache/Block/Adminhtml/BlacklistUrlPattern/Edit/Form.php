@@ -49,7 +49,8 @@ class Aoe_VarnishAsyncCache_Block_Adminhtml_BlacklistUrlPattern_Edit_Form extend
             'class'     => 'required-entry',
             'name'      => 'pattern',
             'required'  => true,
-            'value'     => $formValues['pattern']
+            'value'     => $formValues['pattern'],
+            'note'      => 'Should be valid <a href="http://www.php.net/manual/en/reference.pcre.pattern.syntax.php" target="_blank">PHP PCRE Pattern</a>'
         ));
 
         $form->setUseContainer(true);
